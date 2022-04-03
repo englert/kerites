@@ -93,15 +93,15 @@ b. milyen házszámot kapott!
         a. Írja ki a házszámhoz tartozó kerítés színét, ha már elkészült és befestették,
         egyébként az állapotát a „#” vagy „:” karakter jelöli!
         */
-        
-        int hazszam = 83;
+        Console.WriteLine($"5. feladat");
+        Console.Write($"Adjon meg egy házszámot! "); // 8383
+        int hazszam = int.Parse( Console.ReadLine() );
         var hazszam_szin = new Dictionary<int, string>();
         foreach (var sor in lista)
         {
             hazszam_szin[sor.hazszam] = sor.szin;
         }
         
-        Console.WriteLine($"5. feladat");
         Console.WriteLine($"A kerítés színe / állapota: {hazszam_szin[hazszam]}");
 
         /*
@@ -135,6 +135,43 @@ b. milyen házszámot kapott!
         Az első sorban a páratlan oldal jelenjen meg, 
         a megfelelő méternyi szakasz kerítésszínét (vagy állapotát) jelző karakterrel! 
         A második sorban a telek első karaktere alatt kezdődően a házszám álljon!
+        */
         
+        string keritesek = "";
+        foreach (var sor in lista)
+        {
+            if ( sor.oldal_id == 1)
+            {
+                for (int i=0; i<sor.hossz; i++)
+                {
+                    keritesek += sor.szin;
+                }
+                
+            if (sor.hazszam > 12) break;
+            }
+        }
+        
+        string hazszamok = "";
+        string hazszam_str = "";
+        foreach (var sor in lista)
+        {
+            if ( sor.oldal_id == 1)
+            {
+                hazszam_str = Convert.ToString(sor.hazszam);
+                hazszamok += hazszam_str;
+                for (int i=0; i<sor.hossz - hazszam_str.Length ; i++)
+                {
+                    hazszamok += " ";
+                }
+                             
+            if (sor.hazszam > 12) break;
+            }    
+        }
+        var sw = new StreamWriter("utcakep.txt");
+        //Console.WriteLine(keritesek);
+        //Console.WriteLine(hazszamok);
+        sw.WriteLine(keritesek);
+        sw.WriteLine(hazszamok);
+        sw.Close();
     }
 }
